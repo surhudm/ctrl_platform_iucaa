@@ -1,0 +1,49 @@
+#!/bin/sh
+
+export HOME=$USERHOME
+export SHELL=/bin/sh
+export USER=$USERNAME
+source /etc/bashrc
+
+module add gnu/4.6.1
+
+datadir=$DATADIR
+
+cd $ORCA_DEFAULTROOT
+
+mkdir -p $ORCA_RUNID
+cd $ORCA_RUNID
+
+mkdir -p logs
+mkdir -p output
+
+mkdir -p output/processCcd_config
+mkdir -p output/processCcd_metadata
+mkdir -p output/sci-results
+
+#ln -s $DATADIR/registry.sqlite3 output/registry.sqlite3
+
+export EUPS_PATH=$EUPS_PATH
+echo `hostname`
+cd $EUPS_PATH
+. $EUPS_PATH/eups/default/bin/setups.sh
+env
+setup lsst
+
+cd $ORCA_DEFAULTROOT
+cd $ORCA_RUNID
+
+eups_setup -t v5_2 datarel -t beta > env.sh
+. ./env.sh
+
+eups_setup -t v5_2 obs_sdss -t beta > tmp.sh
+
+. ./tmp.sh; cat tmp.sh >> env.sh
+
+eups_setup astrometry_net_data   sdss-2012-05-01-0 > tmp.sh
+. ./tmp.sh; cat tmp.sh >> env.sh
+
+
+eups list --setup > eups.list 
+
+
