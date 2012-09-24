@@ -33,8 +33,23 @@ setup lsst
 
 cd $ORCA_DEFAULTROOT
 cd $ORCA_RUNID
-
+echo "Begin setups:"
+date
 $CTRL_EXECUTE_SETUP_PACKAGES
+echo "Finished setups:"
+date
+
+echo "Export environments:"
+date
+python -c """
+import re,os
+with open('env.sh', 'w') as envFile:
+     for k, v in os.environ.iteritems():
+         if re.search(r'_DIR|SETUP_|LSST|EUPS|PATH', k): 
+            print >>envFile, 'export %s=%s' % (k, repr(v))
+"""
+echo "Finished exporting."
+date
 
 #env >>env.sh
 
