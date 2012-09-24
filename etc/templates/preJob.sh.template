@@ -36,7 +36,7 @@ cd $ORCA_RUNID
 
 $CTRL_EXECUTE_SETUP_PACKAGES
 
-env >>env.sh
+#env >>env.sh
 
 #eups_setup -t v5_2 datarel -t beta > env.sh
 #. ./env.sh
