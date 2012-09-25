@@ -21,14 +21,14 @@
 #
 # job name (default = name of script file)
 ## srp - commented out
-##PBS -N testGor
+#PBS -N $NODE_SET
 #        -------------------------------------------------- shimem1
 #PBS -q $QUEUE
 #
 ##
 # Send a notification email when the job (b)egins and when the (e)nds
 # # remove the line below to disable email notification.
-#PBS -m be
+$EMAIL_NOTIFICATION
 # #
 # #
 # # filename for standard output (default = <job_name>.o<job_id>)
