@@ -34,12 +34,12 @@ $EMAIL_NOTIFICATION
 # # filename for standard output (default = <job_name>.o<job_id>)
 # # at end of job, it is in directory from which qsub was executed
 # # remove extra ## from the line below if you want to name your own file
-#PBS -o $OUTPUT_LOG
+#PBS -o $SCRATCH_DIR/$OUTPUT_LOG
 # #
 # # filename for standard error (default = <job_name>.e<job_id>)
 # # at end of job, it is in directory from which qsub was executed
 # # remove extra ## from the line below if you want to name your own file
-#PBS -e $ERROR_LOG
+#PBS -e $SCRATCH_DIR/$ERROR_LOG
 #
 # #
 # # End of embedded QSUB options
@@ -79,7 +79,7 @@ wait
 for num in $(seq 1 $hostcnt)
 do
     #ssh ${hostname[$num]} 'export CONDOR_CONFIG=/oasis/projects/nsf/nsa101/srp/condor/glidein/glidein_condor_config;export _condor_CONDOR_HOST=lsst-launch.ncsa.illinois.edu;export _condor_GLIDEIN_HOST=lsst-launch.ncsa.illinois.edu;export _condor_LOCAL_DIR=$USER_HOME/condor_local;export _condor_SBIN=/oasis/projects/nsf/nsa101/srp/condor/condor-7.4.4-r1/sbin;export _condor_NUM_CPUS=$SLOTS;export _condor_UID_DOMAIN=ncsa.illinois.edu;export _condor_FILESYSTEM_DOMAIN=sdsc.edu;export _condor_MAIL=/bin/mail;export _condor_STARTD_NOCLAIM_SHUTDOWN=300; /oasis/projects/nsf/nsa101/srp/condor/glidein/glidein_startup_gordon -dyn -f' & 
-    ssh ${hostname[$num]} 'export CONDOR_CONFIG=$SCRATCH_DIR/$GENERATED_CONFIG;export _condor_CONDOR_HOST=lsst-launch.ncsa.illinois.edu;export _condor_GLIDEIN_HOST=lsst-launch.ncsa.illinois.edu;export _condor_LOCAL_DIR=$USER_HOME/condor_local;export _condor_SBIN=/oasis/projects/nsf/nsa101/srp/condor/condor-7.4.4-r1/sbin;export _condor_NUM_CPUS=$SLOTS;export _condor_UID_DOMAIN=ncsa.illinois.edu;export _condor_FILESYSTEM_DOMAIN=sdsc.edu;export _condor_MAIL=/bin/mail;export _condor_STARTD_NOCLAIM_SHUTDOWN=900; /oasis/projects/nsf/nsa101/srp/condor/glidein/glidein_startup_gordon -dyn -f' & 
+    ssh ${hostname[$num]} 'export CONDOR_CONFIG=$SCRATCH_DIR/$GENERATED_CONFIG;export _condor_CONDOR_HOST=lsst-launch.ncsa.illinois.edu;export _condor_GLIDEIN_HOST=lsst-launch.ncsa.illinois.edu;export _condor_LOCAL_DIR=$USER_HOME/condor_local;export _condor_SBIN=/oasis/projects/nsf/nsa101/srp/condor/condor-7.4.4-r1/sbin;export _condor_NUM_CPUS=$SLOTS;export _condor_UID_DOMAIN=ncsa.illinois.edu;export _condor_FILESYSTEM_DOMAIN=sdsc.edu;export _condor_MAIL=/bin/mail;export _condor_STARTD_NOCLAIM_SHUTDOWN=1800; /oasis/projects/nsf/nsa101/srp/condor/glidein/glidein_startup_gordon -dyn -f' & 
 done
 
 wait
