@@ -2,6 +2,9 @@
 
 export HERE=$PWD
 
+runid=$1 
+workerid=$2 
+shift 2
 export HOME=$USERHOME
 export SHELL=/bin/sh
 export USER=$USERNAME
@@ -12,29 +15,34 @@ module add gnu/4.6.1
 /bin/hostname -f 
 shost=`/bin/hostname -s`
 
-# Parse commannd line args
 count=0
 check=0
+declare -a names=();
+one_arg=""
 while [ $check == 0 ]; do
-
-run_filter_camcol_field=$1" "$2" "$3" "$4
-
-echo run_filter_camcol_field 
-echo $run_filter_camcol_field 
-names[$count]=$run_filter_camcol_field
-
-if [ $5 == 'X' ]
-    then
-    shift 5
-    count=`expr $count + 1`
-else
-    check=1
-fi
-
+    if [ $1 ]
+        then 
+        if [ $1 == 'X' ]
+            then
+            names[$count]="--id "$one_arg
+            one_arg=""
+            count=`expr $count + 1`
+        else
+            one_arg=$one_arg" "$1
+        fi
+        shift 1
+    else
+        names[$count]="--id "$one_arg
+        check=1
+    fi
 done
+temp=""
+for val in "${names[@]}"
+do
+    temp=$temp" "$val
+done
+id_option=$temp
 
-runid=$5 
-workerid=$6 
 rundir=${HERE}/$ORCA_RUNID
 cd ${rundir}
 
@@ -51,20 +59,6 @@ export EUPS_PATH=$EUPS_PATH
 temp=""
 
 cd ${rundir}
-
-for (( i = 0 ; i < ${#names[@]} ; i++ )) do
-echo "Loop iteration "
-echo $i 
-echo ${names[$i]}
-
-# run_filter_camcol_field=$1" "$2" "$3" "$4 
-temp=$temp" --id "${names[$i]}
-
-# run_filter_camcol_field=${names[$i]}
-done
-
-id_option=$temp
-echo ${id_option}
 
 
 echo "==== Prior to S2012Pipe "
