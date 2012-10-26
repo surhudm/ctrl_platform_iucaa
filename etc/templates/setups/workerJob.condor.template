@@ -11,7 +11,7 @@ when_to_transfer_output = ON_EXIT
 notification=Error
 
 
-args=$RUNID $(workerid) $(var1)
+args=$(runid) $(workerid) $(var1)
 
 output=logs/$(visit)/worker-$(var2).out
 error=logs/$(visit)/worker-$(var2).err

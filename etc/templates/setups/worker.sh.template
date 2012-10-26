@@ -3,6 +3,7 @@
 export HERE=$PWD
 
 runid=$1 
+echo "runid = ",$runid
 workerid=$2 
 shift 2
 export HOME=$USERHOME
