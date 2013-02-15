@@ -1,0 +1,25 @@
+#!/bin/sh
+
+JOBID=$1
+shift
+HERE=$PWD
+if [ "$_condor_LOCAL_DIR" = "." ]; then
+  export _condor_LOCAL_DIR=$(pwd)
+fi
+
+#If we have an X509 user proxy, use it as the Condor daemon proxy.
+if [ "$_condor_GSI_DAEMON_PROXY" = "" ] && [ -a "$X509_USER_PROXY" ]; then
+  export _condor_GSI_DAEMON_PROXY="$X509_USER_PROXY"
+fi
+
+echo -n "copying tarball:";date
+cp /oasis/scratch/srp/temp_project/lsst.tar.gz /scratch/$USER/$JOBID
+echo -n "done copying tarball:";date
+cd /scratch/$USER/$JOBID
+echo -n "untar tarball:";date
+tar xf lsst.tar.gz
+echo -n "done untar tarball:";date
+cd $HERE
+
+
+exec ${_condor_SBIN}/condor_master "$@"
