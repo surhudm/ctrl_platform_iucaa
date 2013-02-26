@@ -3,6 +3,7 @@
 export HERE=$PWD
 
 runid=$1 
+echo "runid = ",$runid
 workerid=$2 
 shift 2
 export HOME=$USERHOME
@@ -51,12 +52,9 @@ cslot=${_CONDOR_SLOT}
 mkdir -p logs/$shost/$cslot
 
 source ./env.sh
-PATH=$PATH:/scratch/$USER/$JOB_ID/lsst/eups/default/bin
 
 #export LSST_HOME=$LSST_HOME
-#NEW
-export EUPS_PATH=/scratch/$USER/$JOB_ID/lsst
-echo $JOB_ID
+export EUPS_PATH=$EUPS_PATH
 
 
 temp=""
@@ -75,12 +73,9 @@ modstring=${workerid}
 
 time1=$(date -d "`date`" "+%s")
 
-#$INSTRUMENTED sendLogEvent.py --runid $ORCA_RUNID --workerid ${workerid} --dataid ${names[0]} --status BEGIN --slot $cslot --comment "starting command"
+
 echo "$COMMAND >> ${rundir}/logs/$shost/$cslot/S2012Pipe-${modstring}.log  2>&1"
-
 $COMMAND >> ${rundir}/logs/$shost/$cslot/S2012Pipe-${modstring}.log  2>&1
-
-#$INSTRUMENTED sendLogEvent.py --runid $ORCA_RUNID --workerid ${workerid} --dataid ${names[0]} --status END --slot $cslot --comment "finished command"
 
 
 time2=$(date -d "`date`" "+%s")

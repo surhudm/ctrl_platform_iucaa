@@ -9,8 +9,6 @@ module add gnu/4.6.1
 
 datadir=$DATADIR
 
-date
-
 cd $ORCA_DEFAULTROOT
 
 mkdir -p $ORCA_RUNID
@@ -18,13 +16,18 @@ cd $ORCA_RUNID
 
 mkdir -p logs
 mkdir -p output
+#
+#mkdir -p output/processCcd_config
+#mkdir -p output/processCcd_metadata
+#mkdir -p output/sci-results
+#
+##ln -s $DATADIR/registry.sqlite3 output/registry.sqlite3
 
+export EUPS_PATH=$EUPS_PATH
 echo `hostname`
-cd /scratch/$USER/$JOB_ID/lsst
-export EUPS_DIR=/scratch/$USER/$JOB_ID/lsst/eups/default
-. /scratch/$USER/$JOB_ID/lsst/eups/default/bin/setups-srp.sh
-setup -r /scratch/$USER/$JOB_ID/lsst/eups/default
-export EUPS_PATH=/scratch/$USER/$JOB_ID/lsst
+cd $EUPS_PATH
+. $EUPS_PATH/eups/default/bin/setups.sh
+#env
 setup lsst
 
 
@@ -48,4 +51,17 @@ with open('env.sh', 'w') as envFile:
 echo "Finished exporting."
 date
 
+#env >>env.sh
+
+#eups_setup -t v5_2 datarel -t beta > env.sh
+#. ./env.sh
+#
+#eups_setup -t v5_2 obs_sdss -t beta > tmp.sh
+#
+#. ./tmp.sh; cat tmp.sh >> env.sh
+#
+#eups_setup astrometry_net_data   sdss-2012-05-01-0 > tmp.sh
+#. ./tmp.sh; cat tmp.sh >> env.sh
+#
+#
 eups list --setup > eups.list 
