@@ -1,5 +1,8 @@
 universe=vanilla
 
+job_ad_information_attrs = MachineSlotName
++MachineSlotName = "$$(Name)"
+
 executable=$ORCA_SCRIPT
 
 transfer_executable=true
@@ -16,5 +19,4 @@ args=$(runid) $(workerid) $(var1)
 output=logs/$(visit)/worker-$(var2).out
 error=logs/$(visit)/worker-$(var2).err
 remote_initialdir=$ORCA_DEFAULTROOT
-
 queue 1

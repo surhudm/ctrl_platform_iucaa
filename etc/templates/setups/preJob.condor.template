@@ -1,5 +1,8 @@
 universe=vanilla
 
+job_ad_information_attrs = MachineSlotName
++MachineSlotName = "$$(Name)"
+
 # executable=/bin/hostname
 # arguments=-f
 executable=$ORCA_SCRIPT
@@ -22,5 +25,6 @@ when_to_transfer_output = ON_EXIT
 remote_initialdir=$ORCA_DEFAULTROOT
 # remote_initialdir=/scratch/00342/ux453102/datarel-runs/pt12prod_im3001/work
 # Requirements = (FileSystemDomain != "dummy") && (Arch != "dummy") && (OpSys != "dummy") && (Disk != -1) && (Memory != -1)
+#
 queue
 
