@@ -65,3 +65,7 @@ date
 #
 #
 eups list --setup > eups.list 
+# Executing any precall() method one time without processing any data
+# will save provenance information such as configs and schemas
+id_option=""
+$COMMAND
