@@ -1,0 +1,44 @@
+#!/bin/bash -l
+nodeset=$NODE_SET
+numcpus=$CPUS
+
+echo USER_NAME
+echo $USER_NAME
+myuser=$USER_NAME
+echo ${myuser}
+
+myhost=`hostname`
+echo ${myhost}
+
+REMOTE_DIR=$LOCAL_SCRATCH/$CONFIGURATION_ID/${myhost}
+mkdir -p ${REMOTE_DIR}/config
+mkdir -p ${REMOTE_DIR}/log
+mkdir -p ${REMOTE_DIR}/spool
+mkdir -p ${REMOTE_DIR}/execute
+
+cp $SCRATCH_DIR/configs/$GENERATED_CONFIG ${REMOTE_DIR}/config/$GENERATED_CONFIG
+condorConfig="${REMOTE_DIR}/config/$GENERATED_CONFIG"
+
+condorLocal=${REMOTE_DIR}
+
+echo ${condorConfig}
+
+
+export CONDOR_CONFIG=${condorConfig}
+export _condor_LOCAL_DIR=${condorLocal}
+
+export _condor_SBIN=$_condor_SBIN
+####################################################################################
+
+myid=`id -u`
+mygp=`id -g`
+export _condor_CONDOR_IDS="${myid}.${mygp}"
+
+echo _condor_CONDOR_IDS
+echo ${_condor_CONDOR_IDS}
+
+###############################################################################
+# Start htcondor, in the foreground
+
+echo "about to run condor_master"
+exec ${_condor_SBIN}/condor_master -f

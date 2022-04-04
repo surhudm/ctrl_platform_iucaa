@@ -20,7 +20,8 @@ STARTER_LIST = STARTER, STARTER_STD
 USE_NFS = False
 USE_CKPT_SERVER = False
 
-COLLECTOR_HOST = lsst-launch.ncsa.illinois.edu
+COLLECTOR_HOST = graphics2:9628
+USE_SHARED_PORT = False
 
 LOCK = $(LOG)
 STARTD_LOG = $(LOG)/StartLog
@@ -44,3 +45,16 @@ STARTD_ATTRS = IS_GLIDEIN, START, DaemonStopTime, NODE_SET
 MASTER_WAITS_FOR_GCB_BROKER = False
 
 START = True
+
+NUM_SLOTS = 1
+NUM_SLOTS_TYPE_1 = 1
+SLOT_TYPE_1 = cpus=100%,disk=20%
+SLOT_TYPE_1_PARTITIONABLE = true
+CLAIM_WORKLIFE = 0
+
+SEC_DEFAULT_AUTHENTICATION_METHODS = FS_REMOTE
+FS_REMOTE_DIR = /mnt/home/faculty/csurhud/condor_tmpdir
+TOTALDISK = 20000000000 
+WithinResourceLimits = true
+HasFileTransferPluginMethods = true
+FILETRANSFER_PLUGINS = $(LIBEXEC)/curl_plugin, $(LIBEXEC)/data_plugin, $(LIBEXEC)/box_plugin.py, $(LIBEXEC)/gdrive_plugin.py, $(LIBEXEC)/onedrive_plugin.py

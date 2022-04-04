@@ -1,5 +1,5 @@
-config.platform.queue = "normal"
+config.platform.queue = "expert"
 config.platform.email = "#PBS -m be"
 config.platform.scratchDirectory = "$USER_HOME/condor_scratch"
-config.platform.loginHostName = "gordon.sdsc.edu"
-config.platform.utilityPath = "/opt/torque/bin"
+config.platform.loginHostName = "graphics2"
+config.platform.utilityPath = "/opt/pbs/2021.1.1/bin"
