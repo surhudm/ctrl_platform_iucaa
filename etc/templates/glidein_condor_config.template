@@ -52,9 +52,41 @@ SLOT_TYPE_1 = cpus=100%,disk=20%
 SLOT_TYPE_1_PARTITIONABLE = true
 CLAIM_WORKLIFE = 0
 
-SEC_DEFAULT_AUTHENTICATION_METHODS = FS_REMOTE
-FS_REMOTE_DIR = /mnt/home/faculty/csurhud/condor_tmpdir
 TOTALDISK = 20000000000 
 WithinResourceLimits = true
 HasFileTransferPluginMethods = true
-FILETRANSFER_PLUGINS = $(LIBEXEC)/curl_plugin, $(LIBEXEC)/data_plugin, $(LIBEXEC)/box_plugin.py, $(LIBEXEC)/gdrive_plugin.py, $(LIBEXEC)/onedrive_plugin.py
+FILETRANSFER_PLUGINS = /mnt/home/faculty/csurhud/soft/condor/libexec/curl_plugin, /mnt/home/faculty/csurhud/soft/condor/libexec/data_plugin, /mnt/home/faculty/csurhud/soft/condor/libexec/box_plugin.py, /mnt/home/faculty/csurhud/soft/condor/libexec/gdrive_plugin.py, /mnt/home/faculty/csurhud/soft/condor/libexec/onedrive_plugin.py
+
+
+# your own username
+USER = csurhud
+
+# map the generated SSL certificates to our user account
+CERTIFICATE_MAPFILE = /mnt/home/faculty/$(USER)/certs/condor_mapfile
+
+# tell Condor where the self-signed certificate is
+AUTH_SSL_SERVER_CAFILE = /mnt/home/faculty/$(USER)/certs/pegasus.crt
+AUTH_SSL_SERVER_CERTFILE = /mnt/home/faculty/$(USER)/certs/pegasus.crt
+AUTH_SSL_SERVER_KEYFILE = /mnt/home/faculty/$(USER)/certs/pegasus.key
+AUTH_SSL_CLIENT_CAFILE =   /mnt/home/faculty/$(USER)/certs/pegasus.crt
+AUTH_SSL_CLIENT_CERTFILE = /mnt/home/faculty/$(USER)/certs/pegasus.crt
+AUTH_SSL_CLIENT_KEYFILE =  /mnt/home/faculty/$(USER)/certs/pegasus.key
+
+# everything must be secured by SSL
+SEC_DEFAULT_AUTHENTICATION = REQUIRED
+SEC_DEFAULT_AUTHENTICATION_METHODS = SSL
+SEC_DAEMON_AUTHENTICATION = REQUIRED
+SEC_DAEMON_AUTHENTICATION_METHODS = SSL
+SEC_DAEMON_INTEGRITY = REQUIRE
+SEC_DAEMON_ENCRYPTION = REQUIRED
+
+# allow your own user to do everything
+ALLOW_READ = $(USER)@*
+ALLOW_WRITE = $(USER)@*
+ALLOW_ADMINISTRATOR = $(USER)@*
+ALLOW_CONFIG = $(USER)@*
+ALLOW_NEGOTIATOR = $(USER)@*
+ALLOW_DAEMON = $(USER)@*
+
+# don't be too strict on SSL checks, this is a self-signed certificate
+SSL_SKIP_HOST_CHECK = true

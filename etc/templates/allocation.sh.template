@@ -42,3 +42,4 @@ echo ${_condor_CONDOR_IDS}
 
 echo "about to run condor_master"
 exec ${_condor_SBIN}/condor_master -f
+
