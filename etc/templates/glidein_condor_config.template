@@ -53,8 +53,8 @@ SLOT_TYPE_1_PARTITIONABLE = true
 CLAIM_WORKLIFE = 0
 
 TOTALDISK = 20000000000 
-WithinResourceLimits = true
-HasFileTransferPluginMethods = true
+#WithinResourceLimits = true
+#HasFileTransferPluginMethods = true
 FILETRANSFER_PLUGINS = /mnt/home/faculty/csurhud/soft/condor/libexec/curl_plugin, /mnt/home/faculty/csurhud/soft/condor/libexec/data_plugin, /mnt/home/faculty/csurhud/soft/condor/libexec/box_plugin.py, /mnt/home/faculty/csurhud/soft/condor/libexec/gdrive_plugin.py, /mnt/home/faculty/csurhud/soft/condor/libexec/onedrive_plugin.py
 
 
